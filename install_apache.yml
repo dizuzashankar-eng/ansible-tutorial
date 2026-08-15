@@ -7,14 +7,33 @@
   - name: updating repository cache
     yum:
       update_cache: yes
+    when: ansible_distribution == "RedHat"
 
   - name: Playbook to install apache2 httpd package
     yum:
       name: httpd
       state: latest
+    when: ansible_distribution == "RedHat"
 
   - name: install php module for apache
     yum:
       name: php
       state: latest
+    when: ansible_distribution == "RedHat"
 
+  - name: updating repository cache
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Playbook to install apache2 httpd package
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: install php module for apache
+    apt:
+      name: libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
