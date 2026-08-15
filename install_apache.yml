@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: updating repository cache
+    yum:
+      update_cache: yes
+
+  - name: Playbook to install apache2 httpd package
+    yum:
+      name: httpd
+      state: latest
+
+  - name: install php module for apache
+    yum:
+      name: php
+      state: latest
+
