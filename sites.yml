@@ -1,0 +1,53 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install updates (Amazon)
+    yum:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "Amazon"
+
+  - name: install updates (Ubuntu)
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"  
+
+- hosts: web_server
+  become: true
+  tasks:
+
+  - name: Playbook to install apache and php on (Amazon)
+    yum:
+      name: 
+        - httpd
+        - php
+      state: latest
+    when: ansible_distribution == "Amazon"
+
+  - name: Playbook to install httpd and php package on (Ubuntu)
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: db_server
+  become: true
+  tasks:
+
+  - name: playbook to install mariadb (Amazon)
+    yum:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "Amazon"
+
+  - name: playbook to install mariadb (Ubuntu)
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
