@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Playbook to install apache2 httpd package
+    yum:
+      name: httpd
+      state: latest
